@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application de Méditation</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Fichier CSS personnalisé -->
+    <style>
+        /* Styles généraux */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f8f9; /* Couleur apaisante pour le fond */
+            color: #4d4d4d;
+        }
+
+        /* Navbar */
+        
+    /* Styles généraux pour la barre de navigation */
+    .navbar {
+        background-color: #1abc9c;  /* Bleu-vert apaisant */
+        border-radius: 10px;         /* Coins arrondis pour un effet doux */
+        padding: 10px 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Ombre douce */
+    }
+
+    .navbar-brand {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .navbar-nav {
+        margin-left: auto;
+    }
+
+    .nav-link {
+        color: white;
+        font-size: 1.1rem;
+        margin-left: 20px;
+        transition: color 0.3s ease;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .nav-link:hover {
+        color: #ecf0f1; /* Blanc doux au survol */
+        text-decoration: underline; /* Soulignement doux */
+    }
+
+    .nav-link:focus, .nav-link:active {
+        outline: none;
+        color: #ecf0f1; /* Blanc doux */
+    }
+
+    /* Logo de la navbar */
+    .navbar img {
+        border-radius: 50%;
+    }
+
+    /* Navbar en petit écran (responsive) */
+    @media (max-width: 768px) {
+        .navbar {
+            text-align: center;
+        }
+
+        .navbar-nav {
+            margin-top: 10px;
+        }
+
+        .nav-link {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+        /* Carrousel */
+        .carousel-inner img {
+            height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Cartes */
+        .card {
+            background-color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #7f8c8d;
+        }
+
+        /* Boutons */
+        .btn-custom {
+            background-color: #1abc9c;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 20px;
+        }
+
+        .btn-custom:hover {
+            background-color: #16a085;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+            border-radius: 30px;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        /* Formulaire */
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border-radius: 30px;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+        }
+
+        /* Sections */
+        .container {
+            padding: 30px;
+        }
+
+        /* Section des recommandations */
+        .recommendation {
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .recommendation h4 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .recommendation p {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+        }
+
+        .recommendation button {
+            background-color: #1abc9c;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 20px;
+        }
+
+        /* Section de la photo */
+        .photo .carousel-control-prev-icon,
+        .photo .carousel-control-next-icon {
+            background-color: #1abc9c;
+        }
+
+        /* Ombre pour les cartes */
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+       /* Section audio */
+       .audio-section {
+            background-color: #e1f5f3;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .audio-section h3 {
+            color: #1abc9c;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Table du programme des séances */
+        .programme-section table {
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .programme-section table th, .programme-section table td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .programme-section th {
+            background-color: #1abc9c;
+            color: white;
+            font-weight: bold;
+        }
+
+        .programme-section tbody tr:nth-child(even) {
+            background-color: #f2f8f9;
+        }
+
+        .programme-section tbody tr:hover {
+            background-color: #d1e8e2;
+        }
+
+        /* Section des règles */
+        .reglement-section {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .reglement-section h3 {
+            color: #1abc9c;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .reglement-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .reglement-section ul li {
+            padding: 10px;
+            font-size: 1rem;
+            color: #4d4d4d;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .reglement-section ul li:last-child {
+            border-bottom: none;
+        }
+
+        /* Bouton de lecture audio personnalisé */
+        .audio-controls {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .audio-controls button {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .audio-controls button:hover {
+            background-color: #16a085;
+        }
+
+        /* Transition pour le règlement */
+        .reglement-section ul {
+            transition: max-height 0.3s ease;
+            overflow: hidden;
+            max-height: 200px; /* Valeur par défaut */
+        }
+
+        .reglement-section ul.expanded {
+            max-height: 1000px; /* Valeur quand la section est déroulée */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <img class="image" src="im3.webp" alt="" height="80px" width="80px">
+            <a class="navbar-brand" href="#">Application de Méditation</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="#">Accueil</a>
+                <a class="nav-link" href="#">Communauté</a>
+                <a class="nav-link" href="#">Profil</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carrousel d'images -->
+    <div class="photo">
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="im1.jpg" class="d-block w-100" alt="Méditation Relaxation">
+                </div>
+                <div class="carousel-item">
+                    <img src="im2.jpg" class="d-block w-100" alt="Méditation Sommeil">
+                </div>
+                <div class="carousel-item">
+                    <img src="im4.jpg" class="d-block w-100" alt="Méditation Concentration">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Container principale -->
+    <div class="container mt-5">
+
+        <!-- Formulaire d'inscription -->
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Inscrivez-vous</h3>
+                <form id="signup-form">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nom d'utilisateur</label>
+                        <input type="text" class="form-control" id="username" placeholder="Entrez votre nom d'utilisateur" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Adresse email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Entrez votre email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Recommandation de méditation -->
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="recommendation">
+                    <h4>Recommandation de Méditation</h4>
+                    <p>Nous vous recommandons de commencer avec une séance de relaxation pour réduire le stress.</p>
+                    <button id="start-session-btn" class="btn btn-custom">Commencer la Méditation</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cartes de méditation -->
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="image1.avif" class="card-img-top" alt="Séance de Méditation 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Réduction du stress</h5>
+                        <p class="card-text">Séance guidée pour réduire le stress et améliorer la concentration.</p>
+                        <button class="btn btn-custom">Démarrer</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="amelioration du someil.jpg" class="card-img-top" alt="Séance de Méditation 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Amélioration du sommeil</h5>
+                        <p class="card-text">Séance guidée pour mieux dormir et améliorer la qualité du sommeil.</p>
+                        <button class="btn btn-custom">Démarrer</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="concentration.jpg" class="card-img-top" alt="Séance de Méditation 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Concentration</h5>
+                        <p class="card-text">Séance pour améliorer la concentration et la productivité mentale.</p>
+                        <button class="btn btn-custom">Démarrer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+     <!-- Section audio pour la musique de méditation -->
+     <div class="container mt-5 audio-section">
+        <h3>Écoutez la musique de méditation</h3>
+        <audio id="meditationAudio" controls>
+            <source src="WhatsApp Audio 2024-12-23 at 13.14.04.mpeg" type="audio/mp3">
+            Votre navigateur ne supporte pas la balise audio.
+        </audio>
+        <div class="audio-controls">
+            <button id="audioToggleButton">Mettre en pause</button>
+        </div>
+    </div>
+
+    <!-- Programme des séances -->
+    <div class="container mt-5 programme-section">
+        <h3>Programme des Séances de Méditation</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Jour</th>
+                    <th>Heure</th>
+                    <th>Séance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lundi</td>
+                    <td>8:00 - 8:30</td>
+                    <td>Méditation pour réduire le stress</td>
+                </tr>
+                <tr>
+                    <td>Mardi</td>
+                    <td>7:30 - 8:00</td>
+                    <td>Méditation pour améliorer le sommeil</td>
+                </tr>
+                <tr>
+                    <td>Mercredi</td>
+                    <td>19:00 - 19:30</td>
+                    <td>Méditation pour la concentration</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Règlement et recommandations des séances -->
+    <div class="container mt-5 reglement-section">
+        <h3>Règlement des Séances</h3>
+        <button id="toggleReglementButton" class="btn btn-outline-info">Voir/masquer le règlement</button>
+        <ul>
+            <li>Assurez-vous d'être dans un endroit calme pour pratiquer la méditation.</li>
+            <li>Commencez chaque séance par 5 minutes de respiration profonde.</li>
+            <li>Ne vous forcez pas à méditer trop longtemps, commencez par des sessions courtes (10 à 15 minutes).</li>
+            <li>Pratiquez régulièrement pour de meilleurs résultats.</li>
+            <li>Si vous vous sentez inconfortable, arrêtez et reposez-vous.</li>
+        </ul>
+</div>
+
+    <footer class="footer text-center py-4" style="background-color: #1abc9c; color: white;">
+        <p>&copy; 2024 Application de Méditation. Tous droits réservés.</p>
+        <p>
+            <a href="#" class="text-white" style="text-decoration: none;">Mentions légales</a> | 
+            <a href="#" class="text-white" style="text-decoration: none;">Politique de confidentialité</a>
+        </p>
+        <p>
+            <a href="https://www.facebook.com" class="text-white" target="_blank" style="text-decoration: none; margin-right: 10px;">
+                <i class="bi bi-facebook"></i> Facebook
+            </a>
+            <a href="https://www.instagram.com" class="text-white" target="_blank" style="text-decoration: none; margin-right: 10px;">
+                <i class="bi bi-instagram"></i> Instagram
+            </a>
+            <a href="https://www.twitter.com" class="text-white" target="_blank" style="text-decoration: none;">
+                <i class="bi bi-twitter"></i> Twitter
+            </a>
+        </p>
+    </footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript personnalisé -->
+    <script>
+        // Fonction de soumission du formulaire d'inscription
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            
+            if (username && email) {
+                alert(`Inscription réussie pour ${username} avec l'email ${email}`);
+            } else {
+                alert("Veuillez remplir tous les champs.");
+            }
+        });
+
+        // Fonction pour démarrer une séance de méditation
+        document.getElementById('start-session-btn').addEventListener('click', function() {
+            alert('La méditation a commencé !');
+        });
+
+        // Fonction pour démarrer une séance de méditation à partir des cartes
+        const meditationButtons = document.querySelectorAll('.card .btn-custom');
+        meditationButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                alert("Démarrage de la méditation...");
+            });
+        });
+           // Contrôle de la musique de méditation (Lecture/Pause)
+           const audio = document.getElementById('meditationAudio');
+        const audioToggleButton = document.getElementById('audioToggleButton');
+
+        audioToggleButton.addEventListener('click', function () {
+            if (audio.paused) {
+                audio.play();
+                audioToggleButton.textContent = 'Mettre en pause';
+            } else {
+                audio.pause();
+                audioToggleButton.textContent = 'Lire la musique';
+            }
+        });
+
+        // Affichage/Masquage du règlement
+        const toggleReglementButton = document.getElementById('toggleReglementButton');
+        const reglementList = document.querySelector('.reglement-section ul');
+
+        toggleReglementButton.addEventListener('click', function () {
+            reglementList.classList.toggle('expanded');
+            if (reglementList.classList.contains('expanded')) {
+                toggleReglementButton.textContent = 'Masquer le règlement';
+            } else {
+                toggleReglementButton.textContent = 'Voir le règlement';
+            }
+        });
+    </script>
+</body>
+
+</html>
